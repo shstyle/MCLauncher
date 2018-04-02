@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 
-class ComputerInfoDetect
+public class ComputerInfoDetect
 {
     public static String GetJavaInstallationPath()
     {

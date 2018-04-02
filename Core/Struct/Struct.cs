@@ -30,5 +30,5 @@ public static class MineCraftInfo
     public static string MinimalForgeVersion = "10.13.4.1566";
     public static string ForgeVersion = "1.7.10-10.13.4.1566-1.7.10";
     public static string ForgeFileName = "forge-1.7.10-10.13.4.1566-1.7.10.jar";
-
+    public static string MinecraftFolderName = ".minecraft";
 }

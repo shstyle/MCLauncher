@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
-using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
 public class PatchManager
 {
@@ -73,6 +73,38 @@ public class PatchManager
        
     }
 
+    public bool PatchCheck()
+    {
+        var mods = GetMods();
+        var modsPackZip = GetDownloadeModsPackZip();
+        foreach(var zip in modsPackZip)
+        {
+            mods.Add(zip);
+        }
+        int equalCount = 0;
+
+        for(int i = 0; i< patchDatas.Count; i++)
+        {
+           for(int j = 0; j < mods.Count; j++)
+           {
+                Debug.WriteLine(patchDatas[i].fileName +","+ mods[j].Name);
+                if (patchDatas[i].fileName == mods[j].Name)
+                {
+                    equalCount++;
+                    break;
+                }
+           
+           }
+        }
+
+        if (equalCount == patchDatas.Count)
+        {
+            Debug.WriteLine(equalCount + "," + patchDatas.Count);
+            return true;
+        }
+
+        return false;
+    }
     public async void DownloadFile(PatchData data, DownloadSingleCompleteDelegate callback)
     {
         try
@@ -111,19 +143,32 @@ public class PatchManager
     }
     public async void PatchStart(DownloadSingleCompleteDelegate callback)
     {
+
+        bool isInstalledJava = await JAVAInstaller.isJavaInstalled();
+        if(isInstalledJava == false) 
+        {
+             await JAVAInstaller.DownloadJava();
+        }
+
         downloadFileCount = patchDatas.Count;
-        foreach (var m in patchDatas)
+        if (PatchCheck())
         {
-            await MakeDownloadURL(m);
-            Debug.WriteLine("Make Downlad URI");
+            Debug.WriteLine(PatchCheck());
+            downloadCompleteDelegate(downloadFileCount, downloadCompleteCount, downloadFailedCount);
+            return;
         }
-        System.Threading.Thread.Sleep(1000);
-        foreach (var m in patchDatas)
+        else
         {
-            DownloadFile(m, callback);
-            Debug.WriteLine("Patch!");
+            foreach (var m in patchDatas)
+            {
+                await MakeDownloadURL(m);
+            }
+            System.Threading.Thread.Sleep(1000);
+            foreach (var m in patchDatas)
+            {
+                DownloadFile(m, callback);
+            }
         }
-        
     }
 
     public void OnPatchComplete()
@@ -133,37 +178,37 @@ public class PatchManager
         CreateMineCraftFolder();
         DirectoryInfo patchFolder = new DirectoryInfo("patchData");
         var files = patchFolder.GetFiles();
-        Empty(new DirectoryInfo(".minecraft/mods"));
+        Empty(new DirectoryInfo(MineCraftInfo.MinecraftFolderName + "/mods"));
         foreach (var m in files)
         {
             var data = patchDatas.Find(x => x.tempFileID + tempExtention == m.Name);
             var fileName = (data != null) ? data.fileName : m.Name;
             if (fileName.Contains(".jar"))
             {
-                System.IO.File.Move(m.FullName, ".minecraft/mods/" + fileName);
+                System.IO.File.Move(m.FullName, MineCraftInfo.MinecraftFolderName + "/mods/" + fileName);
             }
             else if (fileName.Contains(".zip")) 
             {
-                System.IO.File.Move(m.FullName, ".minecraft/" + fileName);
-                System.IO.FileInfo info = new FileInfo(".minecraft/" + fileName);
-                Decompress(info);
-
+                if (File.Exists(MineCraftInfo.MinecraftFolderName + "/" + fileName) == false)
+                {
+                    System.IO.File.Move(m.FullName, "dummy" + "/" + fileName);
+                    System.IO.FileInfo info = new FileInfo("dummy" + "/" + fileName);
+                    DecompressZip(info);
+                }
             }
      
 
         }
     }
 
-    public static void Decompress(FileInfo fileToDecompress)
+    public static void DecompressZip(FileInfo fileToDecompress)
     {
-        using (Stream targetStream = new ZipInputStream(File.OpenRead(fileToDecompress.FullName)))
+
+        using (Stream targetStream = new GZipInputStream(File.OpenRead(fileToDecompress.FullName)))
         {
             using (TarArchive tarArchive = TarArchive.CreateInputTarArchive(targetStream, TarBuffer.DefaultBlockFactor))
             {
-   
-                    tarArchive.ExtractContents(@"c:\");
-               
-               
+                    tarArchive.ExtractContents(@"C:\");
             }
         }
     }
@@ -194,14 +239,14 @@ public class PatchManager
 
     public string GetLauncer(string folderPath)
     {
-        return AppDomain.CurrentDomain.BaseDirectory + @".minecraft\"+folderPath;
+        return AppDomain.CurrentDomain.BaseDirectory + MineCraftInfo.MinecraftFolderName+"/"+folderPath;
     }
 
     public void CreateMineCraftFolder()
     {
-        if(Directory.Exists(".minecraft") == false)
+        if(Directory.Exists(MineCraftInfo.MinecraftFolderName) == false)
         {
-            Directory.CreateDirectory(".minecraft");
+            Directory.CreateDirectory(MineCraftInfo.MinecraftFolderName);
         }
     }
 
@@ -226,6 +271,18 @@ public class PatchManager
 
     }
 
+    public List<FileInfo> GetDownloadeModsPackZip()
+    {
+        System.IO.DirectoryInfo dirInfo = new DirectoryInfo("dummy");
+        var modFiles = dirInfo.GetFiles();
+        List<FileInfo> fileInfoList = new List<FileInfo>();
+        for (int i = 0; i < modFiles.Length; i++)
+        {
+            if (modFiles[i].Extension == ".zip")
+                fileInfoList.Add(modFiles[i]);
+        }
+        return fileInfoList;
+    }
     //모드폴더내의 파일들을 가져온다.
     public List<FileInfo> GetMods()
     {

@@ -25,7 +25,6 @@ namespace MCLoginLib
         public static SessionData DATA = new SessionData();
         static string appData;
         static string path;
-        
         public static async Task<string> Authenticate(string username, string password)
         {
             var vjson = new AuthenticateJSON
@@ -154,10 +153,10 @@ namespace MCLoginLib
         public static async Task StartMineCraft()
         {
             appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\";
-            path = appData + @".minecraft";
+            path = appData + MineCraftInfo.MinecraftFolderName;
 
-            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + ".minecraft");
-            path = AppDomain.CurrentDomain.BaseDirectory + ".minecraft";
+            System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + MineCraftInfo.MinecraftFolderName);
+            path = AppDomain.CurrentDomain.BaseDirectory + MineCraftInfo.MinecraftFolderName;
    
             Process process = new Process();
             try

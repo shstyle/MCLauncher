@@ -13,14 +13,14 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WpfApp3.Xaml.Login.Syle1
+namespace WpfApp3.Xaml.Login.Style
 {
     /// <summary>
     /// Window1.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class Window1 : Window
+    public partial class Style1 : Window
     {
-        public Window1()
+        public Style1()
         {
          
             InitializeComponent();

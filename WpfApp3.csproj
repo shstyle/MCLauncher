@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;STYLE_1</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -59,7 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\CurseAPI.cs" />
+    <Compile Include="Core\Patch\CurseAPI.cs" />
+    <Compile Include="Core\Patch\JAVAInstaller.cs" />
     <Compile Include="Core\Setting\ConfigProvider.cs" />
     <Compile Include="Core\Setting\Settings.cs" />
     <Compile Include="Core\Setting\ComputerInfoDetect.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Xaml\Patch\DownloadWindowLayout1.xaml.cs">
       <DependentUpon>DownloadWindowLayout1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\PatchManager.cs" />
+    <Compile Include="Core\Patch\PatchManager.cs" />
     <Compile Include="Status\MineStat.cs" />
     <Compile Include="ZipLibrary\Adler32.cs" />
     <Compile Include="ZipLibrary\BZip2.cs" />
@@ -196,12 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Xaml\LoginLauncher\Style1\Resources\banner3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="login1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="password.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Xaml\Login\Style1\Resources\login1.png" />
