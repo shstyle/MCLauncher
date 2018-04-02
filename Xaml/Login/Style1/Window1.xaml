@@ -1,0 +1,39 @@
+﻿<Window x:Class="WpfApp3.Xaml.Login.Syle1.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp3.Xaml.Login.Syle1"
+        mc:Ignorable="d"
+        Title="Splashscreen" Width="376" Height="318" WindowStyle="None" Topmost="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FFF8F8F8">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="25"></WindowChrome>
+    </WindowChrome.WindowChrome>
+
+    <StackPanel>
+
+        <Grid Name="titlemini" Height="20" Background="#FFDA8D06">
+            <Button Content="" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Left" Margin="355,1,0,0" Width="20" Background="#FFFFD92C" BorderBrush="{x:Null}" Foreground="#FF0097FF" FontSize="12" Click="Button_Click"/>
+            <Label Content="반가워요!" HorizontalAlignment="Left" Height="29" Margin="156,-3,0,-6" VerticalAlignment="Top" Width="166" Foreground="White"/>
+        </Grid>
+        <Grid Name="grid" HorizontalAlignment="Left" Width="376">
+
+            <Image HorizontalAlignment="Left" Height="114" Margin="126,27,0,0" VerticalAlignment="Top" Width="124" Source="Resources/login1.png" Name="background"/>
+            <TextBox x:Name="id" HorizontalAlignment="Left" Height="24" Margin="103,146,0,0" TextWrapping="Wrap" Text="Username / Email" VerticalAlignment="Top" Width="171" Background="Transparent" Foreground="#FF707070" TextChanged="TextBox_TextChanged"/>
+            <PasswordBox x:Name="pwd" HorizontalAlignment="Left" Margin="103,175,0,0" VerticalAlignment="Top" Background="Transparent" Width="171" Foreground="#FF707070" Password="password"  />
+            
+            <Image HorizontalAlignment="Left" Height="19" Margin="77,149,0,0" VerticalAlignment="Top" Width="21" Source="Resources/person.png" x:Name="userIMG"/>
+            <Image HorizontalAlignment="Left" Height="29" Margin="71,172,0,0" VerticalAlignment="Top" Width="32" Source="Resources/password.png" x:Name="pwdIMG"/>
+            <Button x:Name="Login" Content="Login" HorizontalAlignment="Left" Height="44" Margin="76,208,0,0" VerticalAlignment="Top" Width="224" Background="#FF5ABF63" BorderBrush="White" Foreground="White" FontSize="16" Click="Login_Click"/>
+            <Label Content="모장아이디로 로그인 해주세요!" HorizontalAlignment="Left" Height="25" Margin="98,257,0,0" VerticalAlignment="Top" Width="202" Foreground="Black" FontSize="12"/>
+
+  
+
+        </Grid>
+
+
+    </StackPanel>
+
+
+
+</Window>

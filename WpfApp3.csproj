@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FF653DC0-9EA5-497D-BAE4-4FFCDB8E1A79}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WpfApp3</RootNamespace>
+    <AssemblyName>WpfApp3</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\TFCClient\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>.\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Core\CurseAPI.cs" />
+    <Compile Include="Core\Setting\ConfigProvider.cs" />
+    <Compile Include="Core\Setting\Settings.cs" />
+    <Compile Include="Core\Setting\ComputerInfoDetect.cs" />
+    <Compile Include="Core\Struct\Struct.cs" />
+    <Compile Include="Xaml\Login\Style1\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml\Patch\DownloadWindowLayout1.xaml.cs">
+      <DependentUpon>DownloadWindowLayout1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Core\PatchManager.cs" />
+    <Compile Include="Status\MineStat.cs" />
+    <Compile Include="ZipLibrary\Adler32.cs" />
+    <Compile Include="ZipLibrary\BZip2.cs" />
+    <Compile Include="ZipLibrary\BZip2Constants.cs" />
+    <Compile Include="ZipLibrary\BZip2Crc.cs" />
+    <Compile Include="ZipLibrary\BZip2Exception.cs" />
+    <Compile Include="ZipLibrary\BZip2InputStream.cs" />
+    <Compile Include="ZipLibrary\BZip2OutputStream.cs" />
+    <Compile Include="ZipLibrary\Crc32.cs" />
+    <Compile Include="ZipLibrary\Deflater.cs" />
+    <Compile Include="ZipLibrary\DeflaterConstants.cs" />
+    <Compile Include="ZipLibrary\DeflaterEngine.cs" />
+    <Compile Include="ZipLibrary\DeflaterHuffman.cs" />
+    <Compile Include="ZipLibrary\DeflaterOutputStream.cs" />
+    <Compile Include="ZipLibrary\DeflaterPending.cs" />
+    <Compile Include="ZipLibrary\FastZip.cs" />
+    <Compile Include="ZipLibrary\FileSystemScanner.cs" />
+    <Compile Include="ZipLibrary\GZip.cs" />
+    <Compile Include="ZipLibrary\GZipConstants.cs" />
+    <Compile Include="ZipLibrary\GZipException.cs" />
+    <Compile Include="ZipLibrary\GzipInputStream.cs" />
+    <Compile Include="ZipLibrary\GzipOutputStream.cs" />
+    <Compile Include="ZipLibrary\IChecksum.cs" />
+    <Compile Include="ZipLibrary\IEntryFactory.cs" />
+    <Compile Include="ZipLibrary\INameTransform.cs" />
+    <Compile Include="ZipLibrary\Inflater.cs" />
+    <Compile Include="ZipLibrary\InflaterDynHeader.cs" />
+    <Compile Include="ZipLibrary\InflaterHuffmanTree.cs" />
+    <Compile Include="ZipLibrary\InflaterInputStream.cs" />
+    <Compile Include="ZipLibrary\InvalidHeaderException.cs" />
+    <Compile Include="ZipLibrary\IScanFilter.cs" />
+    <Compile Include="ZipLibrary\LzwConstants.cs" />
+    <Compile Include="ZipLibrary\LzwException.cs" />
+    <Compile Include="ZipLibrary\LzwInputStream.cs" />
+    <Compile Include="ZipLibrary\NameFilter.cs" />
+    <Compile Include="ZipLibrary\OutputWindow.cs" />
+    <Compile Include="ZipLibrary\PathFilter.cs" />
+    <Compile Include="ZipLibrary\PendingBuffer.cs" />
+    <Compile Include="ZipLibrary\PkzipClassic.cs" />
+    <Compile Include="ZipLibrary\SharpZipBaseException.cs" />
+    <Compile Include="ZipLibrary\StreamManipulator.cs" />
+    <Compile Include="ZipLibrary\StreamUtils.cs" />
+    <Compile Include="ZipLibrary\TarArchive.cs" />
+    <Compile Include="ZipLibrary\TarBuffer.cs" />
+    <Compile Include="ZipLibrary\TarEntry.cs" />
+    <Compile Include="ZipLibrary\TarException.cs" />
+    <Compile Include="ZipLibrary\TarHeader.cs" />
+    <Compile Include="ZipLibrary\TarInputStream.cs" />
+    <Compile Include="ZipLibrary\TarOutputStream.cs" />
+    <Compile Include="ZipLibrary\WindowsNameTransform.cs" />
+    <Compile Include="ZipLibrary\WindowsPathUtils.cs" />
+    <Compile Include="ZipLibrary\ZipAESStream.cs" />
+    <Compile Include="ZipLibrary\ZipAESTransform.cs" />
+    <Compile Include="ZipLibrary\ZipConstants.cs" />
+    <Compile Include="ZipLibrary\ZipEntry.cs" />
+    <Compile Include="ZipLibrary\ZipEntryFactory.cs" />
+    <Compile Include="ZipLibrary\ZipException.cs" />
+    <Compile Include="ZipLibrary\ZipExtraData.cs" />
+    <Compile Include="ZipLibrary\ZipFile.cs" />
+    <Compile Include="ZipLibrary\ZipHelperStream.cs" />
+    <Compile Include="ZipLibrary\ZipInputStream.cs" />
+    <Compile Include="ZipLibrary\ZipNameTransform.cs" />
+    <Compile Include="ZipLibrary\ZipOutputStream.cs" />
+    <Page Include="Xaml\Login\Style1\Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml\Patch\DownloadWindowLayout1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml\LoginLauncher\Style1\WindowMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Setting\config.cs" />
+    <Compile Include="Xaml\LoginLauncher\Style1\WindowMain.xaml.cs">
+      <DependentUpon>WindowMain.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\MCLauncher.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\ModTest\" />
+    <Folder Include="Xaml\Launcher\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Xaml\LoginLauncher\Style1\Resources\bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Xaml\LoginLauncher\Style1\Resources\banner1.png" />
+    <Resource Include="Xaml\LoginLauncher\Style1\Resources\banner2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Xaml\LoginLauncher\Style1\Resources\banner3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="login1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="password.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Xaml\Login\Style1\Resources\login1.png" />
+    <Resource Include="Xaml\Login\Style1\Resources\password.png" />
+    <Resource Include="Xaml\Login\Style1\Resources\person.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
