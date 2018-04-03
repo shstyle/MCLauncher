@@ -10,6 +10,15 @@ bin/Debug/patchData/*
 bin/Debug/saves/*
 bin/Debug/logs/*
 bin/Debug/scripts/*
+
+
+bin/Debug/App/*
+bin/Debug/dummy/*
+bin/Debug/Javaruntime/*
+bin/Debug/logs/*
+bin/Debug/patchData/*
+
+
 Licence.txt
 obj
 ## Ignore Visual Studio temporary files, build results, and
