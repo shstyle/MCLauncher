@@ -163,13 +163,12 @@ namespace MCLoginLib
             {
                 process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 process.StartInfo.CreateNoWindow = true;
-                process.StartInfo.FileName = ComputerInfoDetect.GetJavaInstallationPath();
-            
+                process.StartInfo.FileName = ComputerInfoDetect.GetJavaInstallationPath()+ @"bin\java.exe";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.Arguments = MakeForgeData();
-               
+            
                 process.OutputDataReceived += new DataReceivedEventHandler((s, e) =>
                 {
                     if (e.Data != null)

@@ -12,6 +12,8 @@ using System.IO;
 using System.IO.Compression;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
+using ICSharpCode.SharpZipLib.Core;
+
 public class PatchManager
 {
     public class PatchData
@@ -173,8 +175,7 @@ public class PatchManager
 
     public void OnPatchComplete()
     {
-        
-        downloadCompleteDelegate(downloadFileCount, downloadCompleteCount, downloadFailedCount);
+
         CreateMineCraftFolder();
         DirectoryInfo patchFolder = new DirectoryInfo("patchData");
         var files = patchFolder.GetFiles();
@@ -187,18 +188,26 @@ public class PatchManager
             {
                 System.IO.File.Move(m.FullName, MineCraftInfo.MinecraftFolderName + "/mods/" + fileName);
             }
-            else if (fileName.Contains(".zip")) 
+            else if (fileName.Contains(".zip"))
             {
                 if (File.Exists(MineCraftInfo.MinecraftFolderName + "/" + fileName) == false)
                 {
+                    WpfApp3.DownloadWindowLayout1.instance.downloadtext.Text = "모드팩 압축 해제중입니다.";
+                    WpfApp3.DownloadWindowLayout1.instance.downloadtext.UpdateLayout();
+
                     System.IO.File.Move(m.FullName, "dummy" + "/" + fileName);
                     System.IO.FileInfo info = new FileInfo("dummy" + "/" + fileName);
-                    DecompressZip(info);
+                   
+                    ExtractZipFile(info.FullName, null, "dummy/extract");
                 }
             }
-     
+
 
         }
+
+
+        downloadCompleteDelegate(downloadFileCount, downloadCompleteCount, downloadFailedCount);
+
     }
 
     public static void DecompressZip(FileInfo fileToDecompress)
@@ -295,6 +304,57 @@ public class PatchManager
             fileInfoList.Add(modFiles[i]);
        }
        return fileInfoList;
+    }
+
+
+    public static void ExtractZipFile(string archiveFilenameIn, string password, string outFolder, string justThisFile = null)
+    {
+        ICSharpCode.SharpZipLib.Zip.ZipFile zf = null;
+        try
+        {
+            FileStream fs = File.OpenRead(archiveFilenameIn);
+            zf = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs);
+            if (!String.IsNullOrEmpty(password))
+            {
+                zf.Password = password;   
+            }
+            foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry zipEntry in zf)
+            {
+                if (!zipEntry.IsFile)
+                {
+                    continue;          
+                }
+                if (!String.IsNullOrEmpty(justThisFile) && zipEntry.Name != justThisFile)
+                {
+                    continue;
+                }
+                String entryFileName = zipEntry.Name;
+                byte[] buffer = new byte[4096];     // 4K is optimum
+                Stream zipStream = zf.GetInputStream(zipEntry);
+
+                // Manipulate the output filename here as desired.
+                String fullZipToPath = Path.Combine(outFolder, entryFileName);
+                string directoryName = Path.GetDirectoryName(fullZipToPath);
+                if (directoryName.Length > 0)
+                    Directory.CreateDirectory(directoryName);
+
+                // Unzip file in buffered chunks. This is just as fast as unpacking to a buffer the full size
+                // of the file, but does not waste memory.
+                // The "using" will close the stream even if an exception occurs.
+                using (FileStream streamWriter = File.Create(fullZipToPath))
+                {
+                    StreamUtils.Copy(zipStream, streamWriter, buffer);
+                }
+            }
+        }
+        finally
+        {
+            if (zf != null)
+            {
+                zf.IsStreamOwner = true; // Makes close also shut the underlying stream
+                zf.Close(); // Ensure we release resources
+            }
+        }
     }
 }
 
