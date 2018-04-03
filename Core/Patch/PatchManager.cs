@@ -195,10 +195,10 @@ public class PatchManager
                     WpfApp3.DownloadWindowLayout1.instance.downloadtext.Text = "모드팩 압축 해제중입니다.";
                     WpfApp3.DownloadWindowLayout1.instance.downloadtext.UpdateLayout();
 
-                    System.IO.File.Move(m.FullName, "dummy" + "/" + fileName);
-                    System.IO.FileInfo info = new FileInfo("dummy" + "/" + fileName);
+                    System.IO.File.Move(m.FullName, config.modpackDownload + "/" + fileName);
+                    System.IO.FileInfo info = new FileInfo(config.modpackDownload + "/" + fileName);
                    
-                    ExtractZipFile(info.FullName, null, "dummy/extract");
+                    ExtractZipFile(info.FullName, null, config.modpackExtract);
                 }
             }
 
